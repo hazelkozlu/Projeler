@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KutuphaneDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBL_ADMIN">
+    <Key>
+      <PropertyRef Name="KULLANICIID" />
+    </Key>
+    <Property Name="KULLANICIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KULLANICIAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="KULLANICISOYAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_KITAPLAR" Relationship="Self.FK_TBL_KITAPLAR_TBL_ADMIN" FromRole="TBL_ADMIN" ToRole="TBL_KITAPLAR" />
+  </EntityType>
+  <EntityType Name="TBL_KITAPLAR">
+    <Key>
+      <PropertyRef Name="KITAPID" />
+    </Key>
+    <Property Name="KITAPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KITAPAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KITAPYAZARID" Type="Int32" />
+    <Property Name="KITAPTURID" Type="Int32" />
+    <Property Name="BASIMYILI" Type="Int32" />
+    <Property Name="SAYFASAYISI" Type="Int32" />
+    <Property Name="OKUYANID" Type="Int32" />
+    <NavigationProperty Name="TBL_ADMIN" Relationship="Self.FK_TBL_KITAPLAR_TBL_ADMIN" FromRole="TBL_KITAPLAR" ToRole="TBL_ADMIN" />
+    <NavigationProperty Name="TBL_TURLER" Relationship="Self.FK_TBL_KITAPLAR_TBL_TURLER" FromRole="TBL_KITAPLAR" ToRole="TBL_TURLER" />
+    <NavigationProperty Name="TBL_YAZARLAR" Relationship="Self.FK_TBL_KITAPLAR_TBL_YAZARLAR" FromRole="TBL_KITAPLAR" ToRole="TBL_YAZARLAR" />
+  </EntityType>
+  <EntityType Name="TBL_TURLER">
+    <Key>
+      <PropertyRef Name="TURID" />
+    </Key>
+    <Property Name="TURID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TURAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_KITAPLAR" Relationship="Self.FK_TBL_KITAPLAR_TBL_TURLER" FromRole="TBL_TURLER" ToRole="TBL_KITAPLAR" />
+  </EntityType>
+  <EntityType Name="TBL_YAZARLAR">
+    <Key>
+      <PropertyRef Name="YAZARID" />
+    </Key>
+    <Property Name="YAZARID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YAZARADSOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBL_KITAPLAR" Relationship="Self.FK_TBL_KITAPLAR_TBL_YAZARLAR" FromRole="TBL_YAZARLAR" ToRole="TBL_KITAPLAR" />
+  </EntityType>
+  <Association Name="FK_TBL_KITAPLAR_TBL_ADMIN">
+    <End Role="TBL_ADMIN" Type="Self.TBL_ADMIN" Multiplicity="0..1" />
+    <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ADMIN">
+        <PropertyRef Name="KULLANICIID" />
+      </Principal>
+      <Dependent Role="TBL_KITAPLAR">
+        <PropertyRef Name="OKUYANID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_KITAPLAR_TBL_TURLER">
+    <End Role="TBL_TURLER" Type="Self.TBL_TURLER" Multiplicity="0..1" />
+    <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_TURLER">
+        <PropertyRef Name="TURID" />
+      </Principal>
+      <Dependent Role="TBL_KITAPLAR">
+        <PropertyRef Name="KITAPTURID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_KITAPLAR_TBL_YAZARLAR">
+    <End Role="TBL_YAZARLAR" Type="Self.TBL_YAZARLAR" Multiplicity="0..1" />
+    <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_YAZARLAR">
+        <PropertyRef Name="YAZARID" />
+      </Principal>
+      <Dependent Role="TBL_KITAPLAR">
+        <PropertyRef Name="KITAPYAZARID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KutuphaneDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TBL_ADMIN" EntityType="Self.TBL_ADMIN" />
+    <EntitySet Name="TBL_KITAPLAR" EntityType="Self.TBL_KITAPLAR" />
+    <EntitySet Name="TBL_TURLER" EntityType="Self.TBL_TURLER" />
+    <EntitySet Name="TBL_YAZARLAR" EntityType="Self.TBL_YAZARLAR" />
+    <AssociationSet Name="FK_TBL_KITAPLAR_TBL_ADMIN" Association="Self.FK_TBL_KITAPLAR_TBL_ADMIN">
+      <End Role="TBL_ADMIN" EntitySet="TBL_ADMIN" />
+      <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_KITAPLAR_TBL_TURLER" Association="Self.FK_TBL_KITAPLAR_TBL_TURLER">
+      <End Role="TBL_TURLER" EntitySet="TBL_TURLER" />
+      <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_KITAPLAR_TBL_YAZARLAR" Association="Self.FK_TBL_KITAPLAR_TBL_YAZARLAR">
+      <End Role="TBL_YAZARLAR" EntitySet="TBL_YAZARLAR" />
+      <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+    </AssociationSet>
+    <FunctionImport Name="KitapBilgileri" ReturnType="Collection(KutuphaneDBModel.KitapBilgileri_Result)" />
+    <FunctionImport Name="KitapListesi" ReturnType="Collection(KutuphaneDBModel.KitapListesi_Result)" />
+    <FunctionImport Name="Okuyucu" ReturnType="Collection(KutuphaneDBModel.Okuyucu_Result)" />
+    <FunctionImport Name="OkuyucuParm" ReturnType="Collection(KutuphaneDBModel.OkuyucuParm_Result)">
+      <Parameter Name="KULLANICIID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="TBL_ALINACAK" EntityType="KutuphaneDBModel.TBL_ALINACAK" />
+    <FunctionImport Name="HakaninKitaplari" ReturnType="Collection(KutuphaneDBModel.HakaninKitaplari_Result)" />
+    <FunctionImport Name="HazelinKitaplari" ReturnType="Collection(KutuphaneDBModel.HazelinKitaplari_Result)" />
+  </EntityContainer>
+  <ComplexType Name="KitapBilgileri_Result">
+    <Property Type="Int32" Name="KITAPID" Nullable="false" />
+    <Property Type="String" Name="KITAPAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="YAZARID" Nullable="false" />
+    <Property Type="String" Name="YAZARADSOYAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="KITAPTURID" Nullable="true" />
+    <Property Type="String" Name="TURAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="BASIMYILI" Nullable="true" />
+    <Property Type="Int32" Name="SAYFASAYISI" Nullable="true" />
+    <Property Type="Int32" Name="OKUYANID" Nullable="true" />
+    <Property Type="String" Name="KULLANICI" Nullable="true" MaxLength="41" />
+  </ComplexType>
+  <ComplexType Name="KitapListesi_Result">
+    <Property Type="Int32" Name="KITAPID" Nullable="false" />
+    <Property Type="String" Name="KITAPAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="YAZARID" Nullable="false" />
+    <Property Type="String" Name="YAZARADSOYAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="KITAPTURID" Nullable="true" />
+    <Property Type="String" Name="TURAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="BASIMYILI" Nullable="true" />
+    <Property Type="Int32" Name="SAYFASAYISI" Nullable="true" />
+    <Property Type="Int32" Name="OKUYANID" Nullable="true" />
+    <Property Type="String" Name="OKUYAN" Nullable="true" MaxLength="41" />
+  </ComplexType>
+  <ComplexType Name="Okuyucu_Result">
+    <Property Type="Int32" Name="KULLANICIID" Nullable="false" />
+    <Property Type="String" Name="OKUYAN" Nullable="true" MaxLength="41" />
+  </ComplexType>
+  <ComplexType Name="OkuyucuParm_Result">
+    <Property Type="Int32" Name="KULLANICIID" Nullable="false" />
+    <Property Type="String" Name="OKUYAN" Nullable="true" MaxLength="41" />
+  </ComplexType>
+  <EntityType Name="TBL_ALINACAK">
+    <Key>
+      <PropertyRef Name="ALKITAPID" />
+    </Key>
+    <Property Name="ALKITAPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ALKITAPAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="HakaninKitaplari_Result">
+    <Property Type="String" Name="TURAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SAYI" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="HazelinKitaplari_Result">
+    <Property Type="String" Name="TURAD" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="SAYI" Nullable="true" />
+  </ComplexType>
+</Schema>

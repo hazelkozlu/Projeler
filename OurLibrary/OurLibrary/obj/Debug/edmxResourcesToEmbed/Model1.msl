@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KutuphaneDBModelStoreContainer" CdmEntityContainer="KutuphaneDBEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="KutuphaneDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_ADMIN">
+      <EntityTypeMapping TypeName="KutuphaneDBModel.TBL_ADMIN">
+        <MappingFragment StoreEntitySet="TBL_ADMIN">
+          <ScalarProperty Name="KULLANICIID" ColumnName="KULLANICIID" />
+          <ScalarProperty Name="KULLANICIAD" ColumnName="KULLANICIAD" />
+          <ScalarProperty Name="KULLANICISOYAD" ColumnName="KULLANICISOYAD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_KITAPLAR">
+      <EntityTypeMapping TypeName="KutuphaneDBModel.TBL_KITAPLAR">
+        <MappingFragment StoreEntitySet="TBL_KITAPLAR">
+          <ScalarProperty Name="KITAPID" ColumnName="KITAPID" />
+          <ScalarProperty Name="KITAPAD" ColumnName="KITAPAD" />
+          <ScalarProperty Name="KITAPYAZARID" ColumnName="KITAPYAZARID" />
+          <ScalarProperty Name="KITAPTURID" ColumnName="KITAPTURID" />
+          <ScalarProperty Name="BASIMYILI" ColumnName="BASIMYILI" />
+          <ScalarProperty Name="SAYFASAYISI" ColumnName="SAYFASAYISI" />
+          <ScalarProperty Name="OKUYANID" ColumnName="OKUYANID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_TURLER">
+      <EntityTypeMapping TypeName="KutuphaneDBModel.TBL_TURLER">
+        <MappingFragment StoreEntitySet="TBL_TURLER">
+          <ScalarProperty Name="TURID" ColumnName="TURID" />
+          <ScalarProperty Name="TURAD" ColumnName="TURAD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_YAZARLAR">
+      <EntityTypeMapping TypeName="KutuphaneDBModel.TBL_YAZARLAR">
+        <MappingFragment StoreEntitySet="TBL_YAZARLAR">
+          <ScalarProperty Name="YAZARID" ColumnName="YAZARID" />
+          <ScalarProperty Name="YAZARADSOYAD" ColumnName="YAZARADSOYAD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="KitapBilgileri" FunctionName="KutuphaneDBModel.Store.KitapBilgileri">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KutuphaneDBModel.KitapBilgileri_Result">
+          <ScalarProperty Name="KITAPID" ColumnName="KITAPID" />
+          <ScalarProperty Name="KITAPAD" ColumnName="KITAPAD" />
+          <ScalarProperty Name="YAZARID" ColumnName="YAZARID" />
+          <ScalarProperty Name="YAZARADSOYAD" ColumnName="YAZARADSOYAD" />
+          <ScalarProperty Name="KITAPTURID" ColumnName="KITAPTURID" />
+          <ScalarProperty Name="TURAD" ColumnName="TURAD" />
+          <ScalarProperty Name="BASIMYILI" ColumnName="BASIMYILI" />
+          <ScalarProperty Name="SAYFASAYISI" ColumnName="SAYFASAYISI" />
+          <ScalarProperty Name="OKUYANID" ColumnName="OKUYANID" />
+          <ScalarProperty Name="KULLANICI" ColumnName="KULLANICI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="KitapListesi" FunctionName="KutuphaneDBModel.Store.KitapListesi">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KutuphaneDBModel.KitapListesi_Result">
+          <ScalarProperty Name="KITAPID" ColumnName="KITAPID" />
+          <ScalarProperty Name="KITAPAD" ColumnName="KITAPAD" />
+          <ScalarProperty Name="YAZARID" ColumnName="YAZARID" />
+          <ScalarProperty Name="YAZARADSOYAD" ColumnName="YAZARADSOYAD" />
+          <ScalarProperty Name="KITAPTURID" ColumnName="KITAPTURID" />
+          <ScalarProperty Name="TURAD" ColumnName="TURAD" />
+          <ScalarProperty Name="BASIMYILI" ColumnName="BASIMYILI" />
+          <ScalarProperty Name="SAYFASAYISI" ColumnName="SAYFASAYISI" />
+          <ScalarProperty Name="OKUYANID" ColumnName="OKUYANID" />
+          <ScalarProperty Name="OKUYAN" ColumnName="OKUYAN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Okuyucu" FunctionName="KutuphaneDBModel.Store.Okuyucu">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KutuphaneDBModel.Okuyucu_Result">
+          <ScalarProperty Name="KULLANICIID" ColumnName="KULLANICIID" />
+          <ScalarProperty Name="OKUYAN" ColumnName="OKUYAN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="OkuyucuParm" FunctionName="KutuphaneDBModel.Store.OkuyucuParm">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KutuphaneDBModel.OkuyucuParm_Result">
+          <ScalarProperty Name="KULLANICIID" ColumnName="KULLANICIID" />
+          <ScalarProperty Name="OKUYAN" ColumnName="OKUYAN" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="TBL_ALINACAK">
+      <EntityTypeMapping TypeName="KutuphaneDBModel.TBL_ALINACAK">
+        <MappingFragment StoreEntitySet="TBL_ALINACAK">
+          <ScalarProperty Name="ALKITAPAD" ColumnName="ALKITAPAD" />
+          <ScalarProperty Name="ALKITAPID" ColumnName="ALKITAPID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="HakaninKitaplari" FunctionName="KutuphaneDBModel.Store.HakaninKitaplari">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KutuphaneDBModel.HakaninKitaplari_Result">
+          <ScalarProperty Name="TURAD" ColumnName="TURAD" />
+          <ScalarProperty Name="SAYI" ColumnName="SAYI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="HazelinKitaplari" FunctionName="KutuphaneDBModel.Store.HazelinKitaplari">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KutuphaneDBModel.HazelinKitaplari_Result">
+          <ScalarProperty Name="TURAD" ColumnName="TURAD" />
+          <ScalarProperty Name="SAYI" ColumnName="SAYI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KutuphaneDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TBL_ADMIN">
+    <Key>
+      <PropertyRef Name="KULLANICIID" />
+    </Key>
+    <Property Name="KULLANICIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KULLANICIAD" Type="varchar" MaxLength="20" />
+    <Property Name="KULLANICISOYAD" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="TBL_ALINACAK">
+    <Key>
+      <PropertyRef Name="ALKITAPID" />
+    </Key>
+    <Property Name="ALKITAPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ALKITAPAD" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_KITAPLAR">
+    <Key>
+      <PropertyRef Name="KITAPID" />
+    </Key>
+    <Property Name="KITAPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KITAPAD" Type="varchar" MaxLength="50" />
+    <Property Name="KITAPYAZARID" Type="int" />
+    <Property Name="KITAPTURID" Type="int" />
+    <Property Name="BASIMYILI" Type="int" />
+    <Property Name="SAYFASAYISI" Type="int" />
+    <Property Name="OKUYANID" Type="int" />
+  </EntityType>
+  <EntityType Name="TBL_TURLER">
+    <Key>
+      <PropertyRef Name="TURID" />
+    </Key>
+    <Property Name="TURID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TURAD" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBL_YAZARLAR">
+    <Key>
+      <PropertyRef Name="YAZARID" />
+    </Key>
+    <Property Name="YAZARID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YAZARADSOYAD" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_TBL_KITAPLAR_TBL_ADMIN">
+    <End Role="TBL_ADMIN" Type="Self.TBL_ADMIN" Multiplicity="0..1" />
+    <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_ADMIN">
+        <PropertyRef Name="KULLANICIID" />
+      </Principal>
+      <Dependent Role="TBL_KITAPLAR">
+        <PropertyRef Name="OKUYANID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_KITAPLAR_TBL_TURLER">
+    <End Role="TBL_TURLER" Type="Self.TBL_TURLER" Multiplicity="0..1" />
+    <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_TURLER">
+        <PropertyRef Name="TURID" />
+      </Principal>
+      <Dependent Role="TBL_KITAPLAR">
+        <PropertyRef Name="KITAPTURID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBL_KITAPLAR_TBL_YAZARLAR">
+    <End Role="TBL_YAZARLAR" Type="Self.TBL_YAZARLAR" Multiplicity="0..1" />
+    <End Role="TBL_KITAPLAR" Type="Self.TBL_KITAPLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_YAZARLAR">
+        <PropertyRef Name="YAZARID" />
+      </Principal>
+      <Dependent Role="TBL_KITAPLAR">
+        <PropertyRef Name="KITAPYAZARID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="HakaninKitaplari" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="HazelinKitaplari" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="KitapBilgileri" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="KitapListesi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Okuyucu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="OkuyucuParm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="KULLANICIID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="KutuphaneDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ADMIN" EntityType="Self.TBL_ADMIN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_ALINACAK" EntityType="Self.TBL_ALINACAK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_KITAPLAR" EntityType="Self.TBL_KITAPLAR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_TURLER" EntityType="Self.TBL_TURLER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_YAZARLAR" EntityType="Self.TBL_YAZARLAR" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TBL_KITAPLAR_TBL_ADMIN" Association="Self.FK_TBL_KITAPLAR_TBL_ADMIN">
+      <End Role="TBL_ADMIN" EntitySet="TBL_ADMIN" />
+      <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_KITAPLAR_TBL_TURLER" Association="Self.FK_TBL_KITAPLAR_TBL_TURLER">
+      <End Role="TBL_TURLER" EntitySet="TBL_TURLER" />
+      <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBL_KITAPLAR_TBL_YAZARLAR" Association="Self.FK_TBL_KITAPLAR_TBL_YAZARLAR">
+      <End Role="TBL_YAZARLAR" EntitySet="TBL_YAZARLAR" />
+      <End Role="TBL_KITAPLAR" EntitySet="TBL_KITAPLAR" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
